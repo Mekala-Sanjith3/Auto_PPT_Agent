@@ -1,0 +1,21 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Environment — never commit API keys
+.env
+
+# Generated output (created at runtime)
+auto_ppt_output/*
+!auto_ppt_output/.gitkeep
+
+# Frontend build artefacts
+frontend/node_modules/
+frontend/dist/
+
+# OS files
+.DS_Store
+Thumbs.db
