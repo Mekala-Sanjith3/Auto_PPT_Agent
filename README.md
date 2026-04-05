@@ -1,6 +1,6 @@
 # Auto-PPT Agent
 
-> An AI agent that autonomously researches, plans, and generates PowerPoint presentations from a single sentence prompt — powered by a custom MCP (Model Context Protocol) architecture.
+> An AI agent that autonomously researches, plans, and generates PowerPoint presentations from a single sentence prompt - powered by a custom MCP (Model Context Protocol) architecture.
 
 **[Watch Demo Video (2 min)](https://drive.google.com/file/d/1LMYYZzZ_BmHVUnYhxRYoEmX114bAZrPF/view?usp=sharing)**
 
@@ -22,15 +22,15 @@ All of this happens without the user doing anything after clicking **Generate De
 
 ## Deliverables
 
- **1. Code Repository** – Complete source code for the agent, backend, frontend, and all MCP servers included.  
- **2. Video Demo** – [Link to 2-minute demo video showing the agent creating a PPT from scratch](https://drive.google.com/file/d/1LMYYZzZ_BmHVUnYhxRYoEmX114bAZrPF/view?usp=sharing).  
- **3. Reflection Document** – Attached as `MekalaSanjith_Auto_Agent_PPT_Reflection.pdf`, answering the prompt about where the agent first failed and how MCP prevented hardcoded logic.
+ **1. Code Repository** - Complete source code for the agent, backend, frontend, and all MCP servers included.  
+ **2. Video Demo** - [Link to 2-minute demo video showing the agent creating a PPT from scratch](https://drive.google.com/file/d/1LMYYZzZ_BmHVUnYhxRYoEmX114bAZrPF/view?usp=sharing).  
+ **3. Reflection Document** - Attached as `MekalaSanjith_Auto_Agent_PPT_Reflection.pdf`, answering the prompt about where the agent first failed and how MCP prevented hardcoded logic.
 
 ---
 
 ## Architecture
 
-The agent follows a deterministic agentic loop — it must explicitly plan before it can execute. This is enforced by the `submit_slide_plan` gate in the PPTX MCP server.
+The agent follows a deterministic agentic loop - it must explicitly plan before it can execute. This is enforced by the `submit_slide_plan` gate in the PPTX MCP server.
 
 ```
 User Prompt
@@ -55,20 +55,20 @@ FastAPI Backend (WebSocket)
                     get_image_for_slide (HuggingFace → Pollinations → placeholder)
 ```
 
-Each MCP server runs as a subprocess communicating over stdio — exactly as specified by the MCP protocol. The agent orchestrates all three in parallel sessions per presentation.
+Each MCP server runs as a subprocess communicating over stdio - exactly as specified by the MCP protocol. The agent orchestrates all three in parallel sessions per presentation.
 
 ---
 
 ## Features
 
-- **Dynamic slide count** — parses the prompt for numbers (`"10 slides"`, `"ten-slide"`, etc.)
-- **3 MCP servers** — PPTX builder, web search, and AI image generation
-- **Multi-LLM fallback chain** — Groq → HuggingFace (automatically switches if one fails)
-- **Smart fallback content** — uses web search sentences as bullets if the LLM is unavailable
-- **4 visual themes** — Napkin, Ocean, Dark Mode, Minimal
-- **Real-time progress stream** — WebSocket pushes every agent step to the frontend
-- **Save to custom folder** — copies the generated file to any path on the local machine
-- **Graceful error handling** — never crashes; always produces a valid `.pptx`
+- **Dynamic slide count** - parses the prompt for numbers (`"10 slides"`, `"ten-slide"`, etc.)
+- **3 MCP servers** - PPTX builder, web search, and AI image generation
+- **Multi-LLM fallback chain** - Groq → HuggingFace (automatically switches if one fails)
+- **Smart fallback content** - uses web search sentences as bullets if the LLM is unavailable
+- **4 visual themes** - Napkin, Ocean, Dark Mode, Minimal
+- **Real-time progress stream** - WebSocket pushes every agent step to the frontend
+- **Save to custom folder** - copies the generated file to any path on the local machine
+- **Graceful error handling** - never crashes; always produces a valid `.pptx`
 
 ---
 
@@ -92,22 +92,22 @@ Each MCP server runs as a subprocess communicating over stdio — exactly as spe
 Agent_PPT/
 ├── backend/
 │   ├── __init__.py
-│   ├── agent_runner.py      # Main agentic loop — orchestrates all 3 MCP servers
-│   └── server.py            # FastAPI app — WebSocket + REST endpoints
+│   ├── agent_runner.py      # Main agentic loop - orchestrates all 3 MCP servers
+│   └── server.py            # FastAPI app - WebSocket + REST endpoints
 │
 ├── servers/
-│   ├── pptx_mcp_server.py       # MCP #1 — builds the PowerPoint file
-│   ├── web_search_mcp_server.py # MCP #2 — fetches real content per slide
-│   └── hf_image_mcp_server.py   # MCP #3 — generates slide images
+│   ├── pptx_mcp_server.py       # MCP #1 - builds the PowerPoint file
+│   ├── web_search_mcp_server.py # MCP #2 - fetches real content per slide
+│   └── hf_image_mcp_server.py   # MCP #3 - generates slide images
 │
 ├── frontend/
 │   └── src/
-│       ├── App.jsx          # Main React UI — theme picker, live log, slide plan
+│       ├── App.jsx          # Main React UI - theme picker, live log, slide plan
 │       └── index.css        # Glassmorphism dark UI
 │
 ├── auto_ppt_output/         # All generated .pptx files saved here
 ├── config.py                # Reads .env and sets output paths
-├── run_backend.py           # Entry point — starts the FastAPI server
+├── run_backend.py           # Entry point - starts the FastAPI server
 ├── requirements.txt
 └── .env                     # API keys (not committed)
 ```
@@ -159,7 +159,7 @@ HUGGINGFACEHUB_API_TOKEN=hf_your_token_here
 AUTO_PPT_OUTPUT_DIR=C:/path/to/your/auto_ppt_output
 ```
 
-> **Note:** Groq is recommended for text generation — it's free, fast, and works reliably. HuggingFace free-tier credits are used for image generation only.
+> **Note:** Groq is recommended for text generation - it's free, fast, and works reliably. HuggingFace free-tier credits are used for image generation only.
 
 ### 5. Install frontend dependencies
 
@@ -175,13 +175,13 @@ cd ..
 
 You need **two terminals** open simultaneously.
 
-**Terminal 1 — Backend:**
+**Terminal 1 - Backend:**
 ```bash
 python run_backend.py
 ```
 Server starts at `http://localhost:8000`
 
-**Terminal 2 — Frontend:**
+**Terminal 2 - Frontend:**
 ```bash
 cd frontend
 npm run dev
@@ -193,7 +193,7 @@ UI opens at `http://localhost:5173`
 ## Usage
 
 1. Open `http://localhost:5173` in your browser
-2. Type a prompt — e.g. *"Create a 10-slide presentation on Machine Learning"*
+2. Type a prompt - e.g. *"Create a 10-slide presentation on Machine Learning"*
 3. Select a visual theme (Napkin, Ocean, Dark Mode, or Minimal)
 4. Click **Generate Deck**
 5. Watch the agent plan, research, generate images, and build the deck in real time
@@ -207,3 +207,14 @@ UI opens at `http://localhost:5173`
 **Course:** AI Agents & MCP Architecture  
 **Assignment:** Auto-PPT Agent  
 **Objective:** Build a functional agent that uses MCP servers to autonomously create a PowerPoint presentation from a single user prompt.
+
+---
+
+## Future Scope
+
+While the current agent satisfies all constraints, the system architecture opens possibilities for:
+
+- **PDF Export:** Support converting the generated `.pptx` directly to `.pdf` via an additional MCP tool.
+- **Custom Corporate Templates:** Allow the agent to dynamically map content into exact `ppt/slideLayouts` required by enterprise guidelines.
+- **Multi-Modal Generation:** Introduce a Voice MCP to let the agent auto-generate and embed AI speaker-notes or audio narration per slide.
+- **Human-in-the-Loop (HITL) Planning:** Pause execution after `submit_slide_plan`, prompt the user in the UI to re-order or edit the plan, then resume slide execution.
