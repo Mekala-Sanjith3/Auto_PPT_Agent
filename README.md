@@ -72,6 +72,20 @@ Each MCP server runs as a subprocess communicating over stdio - exactly as speci
 
 ---
 
+## Workflow Outputs
+
+Here is a visual overview of the agentic workflow and the generated results:
+
+<div align="center">
+  <img src="assets/1.Output.png" alt="Agent Workflow Step 1" width="800"/>
+  <br/><br/>
+  <img src="assets/2.output.png" alt="Agent Workflow Step 2" width="800"/>
+  <br/><br/>
+  <img src="assets/3.output.png" alt="Final Presentation Output" width="800"/>
+</div>
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
