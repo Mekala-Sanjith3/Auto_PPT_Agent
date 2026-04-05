@@ -210,13 +210,22 @@ async def run_agent(prompt: str, websocket: WebSocket, theme: str = "ocean"):
                 await web.initialize()
                 await img.initialize()
 
+                # Extract actual topic from the prompt (e.g. strip "Create a 10-slide presentation on...")
+                clean_topic = re.sub(
+                    r"(?i)^(create|make|generate|build)\s+(a\s+)?(\d+[\-\s]?slides?\s+)?(presentation|deck|ppt|powerpoint)\s+(on|about|for)\s+",
+                    "", prompt
+                ).strip()
+                if not clean_topic:
+                    clean_topic = prompt[:60]
+                clean_topic = clean_topic[0].upper() + clean_topic[1:]
+
                 # Create the presentation file and lock in the slide plan
                 await websocket.send_json({
                     "type": "status",
                     "message": f"Creating presentation with theme: {theme}"
                 })
                 await ppt.call_tool("create_presentation", arguments={
-                    "topic": prompt[:60],
+                    "topic": clean_topic[:80],
                     "filename_base": topic_base,
                     "theme_name": theme
                 })
@@ -305,7 +314,12 @@ async def run_agent(prompt: str, websocket: WebSocket, theme: str = "ocean"):
                     image_path = None
                     try:
                         img_res = await img.call_tool("get_image_for_slide", arguments={
-                            "prompt": f"{title} illustration for a presentation about {prompt}"
+                            "prompt": (
+                                f"Professional abstract concept photo of {title}, "
+                                f"related to {prompt}, "
+                                f"clean minimalist design, symbolic visualization, "
+                                f"no text, no words, no labels, no letters, no writing"
+                            )
                         })
                         image_path = img_res.content[0].text if img_res.content else None
                         if image_path:

@@ -1,5 +1,5 @@
 """
-run_backend.py — Start the Auto-PPT FastAPI server from the project root.
+run_backend.py - Start the Auto-PPT FastAPI server from the project root.
 
 Usage:
     python run_backend.py

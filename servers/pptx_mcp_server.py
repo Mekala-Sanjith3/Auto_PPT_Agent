@@ -320,7 +320,7 @@ def _add_topic_tag(slide, topic: str) -> None:
     p.font.italic    = True            # Italic distinguishes it from slide content
 
 
-def _style_title_slide(slide, topic: str, subtitle: str = "Learning deck · visual outline") -> None:
+def _style_title_slide(slide, topic: str, subtitle: str = "") -> None:
     """
     applies styling to the first slide (title slide):
     - Background color from theme

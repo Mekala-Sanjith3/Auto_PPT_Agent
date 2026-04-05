@@ -226,15 +226,22 @@ def _try_pollinations(prompt: str, out_png: Path) -> bool:
         # Clean up the prompt: collapse whitespace and truncate to 400 chars (URL length limit)
         safe = " ".join(prompt.split())[:400]
 
-        # URL-encode the prompt for safe inclusion in the query string
-        q = urllib.parse.quote(safe)
+        # Append style guidance to prevent the model generating garbled text labels.
+        # Infographic-style prompts cause AI models to render fake/gibberish words.
+        style_suffix = ", professional concept photography, no text, no words, no labels, no writing, clean abstract design"
+        styled = (safe + style_suffix)[:500]
+        q = urllib.parse.quote(styled)
 
-        # Square image (512×512) — fills tall right column on slides
+        # Negative prompt tells Pollinations to avoid any text rendering
+        neg = urllib.parse.quote("text, words, letters, typography, writing, labels, captions, watermark, gibberish")
+
         url = (
             f"https://image.pollinations.ai/prompt/{q}"
-            "?width=512&height=512"
-            "&nologo=true"
-            "&enhance=false"
+            f"?width=512&height=512"
+            f"&nologo=true"
+            f"&enhance=false"
+            f"&negative={neg}"
+            f"&model=flux"
         )
 
         # Create the HTTP GET request

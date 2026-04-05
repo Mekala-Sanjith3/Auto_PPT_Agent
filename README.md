@@ -2,6 +2,8 @@
 
 > An AI agent that autonomously researches, plans, and generates PowerPoint presentations from a single sentence prompt — powered by a custom MCP (Model Context Protocol) architecture.
 
+**[Watch Demo Video (2 min)](https://drive.google.com/file/d/1LMYYZzZ_BmHVUnYhxRYoEmX114bAZrPF/view?usp=sharing)**
+
 ---
 
 ## Overview
@@ -15,6 +17,14 @@ Auto-PPT Agent is a full-stack application built for the **AI Agents & MCP Archi
 5. **Streams** real-time progress to a React frontend over WebSocket
 
 All of this happens without the user doing anything after clicking **Generate Deck**.
+
+---
+
+## Deliverables
+
+ **1. Code Repository** – Complete source code for the agent, backend, frontend, and all MCP servers included.  
+ **2. Video Demo** – [Link to 2-minute demo video showing the agent creating a PPT from scratch](https://drive.google.com/file/d/1LMYYZzZ_BmHVUnYhxRYoEmX114bAZrPF/view?usp=sharing).  
+ **3. Reflection Document** – Attached as `MekalaSanjith_Auto_Agent_PPT_Reflection.pdf`, answering the prompt about where the agent first failed and how MCP prevented hardcoded logic.
 
 ---
 
@@ -189,19 +199,6 @@ UI opens at `http://localhost:5173`
 5. Watch the agent plan, research, generate images, and build the deck in real time
 6. Click **Download** when complete, or use **Save to Folder** to copy it anywhere
 
----
-
-## MCP Compliance
-
-This project satisfies all MCP grading criteria:
-
-| Requirement | Implementation |
-|---|---|
-| **≥ 2 MCP servers** | 3 servers: `pptx_mcp_server`, `web_search_mcp_server`, `hf_image_mcp_server` |
-| **Planning gate** | `submit_slide_plan` must be called before any `add_slide` is allowed |
-| **Agentic loop** | Per-slide loop: search → LLM → image → add_slide |
-| **Graceful hallucination** | Falls back to web sentences if LLM unavailable; placeholder image if HF fails |
-| **Valid `.pptx` output** | Professional themed slides with titles, bullets, images, and slide numbers |
 
 ---
 
